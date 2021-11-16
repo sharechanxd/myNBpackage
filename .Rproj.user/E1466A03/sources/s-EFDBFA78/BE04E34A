@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1637095446514.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BE04E34A",
+    "lastKnownWriteTime" : 1637095446,
+    "last_content_update" : 1637095446,
+    "path" : "D:/ms_things/625/myNBpackage/vignettes/nb.Rmd",
+    "project_path" : "vignettes/nb.Rmd",
+    "properties" : {
+        "cursorPosition" : "17,20",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
