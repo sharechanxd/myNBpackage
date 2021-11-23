@@ -1,3 +1,2 @@
-language: R
-script: True
-cache: packages
+language:  R
+cache:  packages
