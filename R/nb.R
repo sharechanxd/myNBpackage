@@ -8,8 +8,8 @@
 #' @export
 #'
 #' @examples
-#' library(rPackageTutorial)
 #' add(1, 2)
+#' @export
 add<-function(a,b) {
   a+b
 }
