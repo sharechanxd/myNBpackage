@@ -18,6 +18,6 @@ Sum of two number.
 Returns the sum of two numbers
 }
 \examples{
-library(rPackageTutorial)
+library(myNBpackage)
 add(1, 2)
 }

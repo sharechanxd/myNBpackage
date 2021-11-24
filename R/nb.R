@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' library(myNBpackage)
 #' add(1, 2)
 #' @export
 add<-function(a,b) {
