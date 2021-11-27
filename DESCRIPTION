@@ -6,7 +6,9 @@ Imports:
     discretization,
     e1071,
     bench,
-    ggplot2
+    ggplot2,
+    ggbeeswarm,
+    tidyr
 Author: Xiao Chen
 Maintainer: Xiao Chen <xiaocx@umich.edu>
 Description: Implement Naive Bayes Classifier
