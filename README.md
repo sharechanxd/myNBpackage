@@ -28,7 +28,7 @@ number of samples can learn the distribution of the data. In my package,
 I build method for data discretization and build naive bayes classifier
 with Gaussian estimation for continous variables.
 
-Compared to the well-established “e1071” package, although our package
+Compared to the well-established **e1071** package, although our package
 is not so efficient and memory-saving when running the same huge data
 tasks, it could provide users with more flexible operation with
 continuous and categorical variables. We provide the tutorial and
