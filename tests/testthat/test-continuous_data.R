@@ -1,9 +1,4 @@
-if (!require("e1071",character.only = T)) {
-  install.packages("e1071",quiet=TRUE)
-}
-if (!require("discretization",character.only = T)) {
-  install.packages("discretization",quiet=TRUE)
-}
+
 library(discretization, quietly = TRUE)
 library(e1071, quietly = TRUE)
 

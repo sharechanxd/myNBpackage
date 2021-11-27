@@ -1,8 +1,11 @@
 if (!require("discretization",character.only = T)) {
   install.packages("discretization",quiet=TRUE)
 }
+if (!require("e1071",character.only = T)) {
+  install.packages("e1071",quiet=TRUE)
+}
 library(discretization, quietly = TRUE) ## help with discretization
-
+library(e1071, quietly = TRUE)
 ## To estimate the parameters for a feature's distribution, one must assume a distribution or generate nonparametric models for the features from the training set.
 ## If you are dealing with continuous data, a common assumption is that these continuous values are Gaussian.
 ## Another commonly used technique for dealing with continuous numerical problems is by discretizing continuous numerical values.
@@ -21,7 +24,7 @@ library(discretization, quietly = TRUE) ## help with discretization
 #'
 #' @return A list with cut points and new x dataframe
 #' @export
-#'
+#' @importFrom discretization value
 #' @examples
 #' x=iris[c(1:40,51:90,101:140),-5]
 #' y=iris[c(1:40,51:90,101:140),5]
