@@ -11,9 +11,9 @@ predict_your_model(NB_obj,new_x, pred_type = c('class','raw'),threshold = .Machi
 
 \item{new_x}{a dataframe of test dataset without labels}
 
-\item{pred_type}{predict result, should be 'class' or 'raw'}
+\item{pred_type}{predicted result type, should be 'class' or 'raw'}
 
-\item{threshold}{laplace smoothing parametre, default is .Machine$double.eps}
+\item{threshold}{Value replacing cells with probabilities within eps, default is .Machine$double.eps}
 
 \item{eps}{laplace smoothing parametre, default is 0}
 }
@@ -21,7 +21,10 @@ predict_your_model(NB_obj,new_x, pred_type = c('class','raw'),threshold = .Machi
 predicted result depending on pred_type
 }
 \description{
-Naive bayes predictor
+used to predict new data with previously defined model
+}
+\details{
+Notice you should specify the result type in 'class'(return labels) and 'raw'(return probabilities)
 }
 \examples{
 x=iris[c(1:40,51:90,101:140),-5]

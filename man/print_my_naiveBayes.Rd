@@ -13,7 +13,7 @@ print_my_naiveBayes(model)
 1 as flag
 }
 \description{
-Print function to see hidden information
+see hidden information
 }
 \examples{
 x=iris[c(1:40,51:90,101:140),-5]

@@ -14,6 +14,161 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Load data and package
+
 ```{r setup}
 library(myNBpackage)
+library(e1071)
+data("iris")
+# train data
+x=iris[c(1:40,51:90,101:140),-5]
+y=iris[c(1:40,51:90,101:140),5]
+
+# test data without labels
+testx = iris[c(41:50,91:100,141:150),-5]
 ```
+
+# The usage of the this package
+
+The usage of myNBpackage is to allow users to build naive bayes classifier with discretization and Gaussian estimation and predict the new data's labels.
+
+## Discretization
+
+We could run **disc_train_data** and **disc_test_data** to transform continuous X column to categorical form.
+
+```{r}
+v = disc_train_data(x,y)
+x_dis = v$discredata
+v$cutp
+head(x_dis)
+```
+
+After this, we could discrete test data with the same paradigm.
+
+```{r}
+testx_dis = disc_test_data(testx,v$cutp)
+head(testx_dis)
+```
+
+But actually, with our package, there is no need to do discretization outside, we could just do as follows:
+
+```{r}
+m2_2 = myNaiveBayes(x,y,discre = TRUE)
+```
+
+We can use the _naiveBayes()_ function from *e1071* to verify this function
+
+```{r}
+m1_2 = naiveBayes(x_dis,y)
+r1_2 = predict(m1_2,testx_dis)
+
+#our functions
+m2_2 = myNaiveBayes(x,y,discre = TRUE)
+r2_2 = predict_your_model(m2_2,testx,'class')
+
+all.equal(r1_2,r2_2)
+
+```
+
+## Predicted Result: Class and Raw
+
+With different *pred_type* you assign, the output result would be different.
+
+```{r}
+# Output class result
+m1 = naiveBayes(x,y)
+r1 = predict(m1,testx)
+m2 = myNaiveBayes(x,y)
+r2 = predict_your_model(m2,testx,'class')
+all.equal(r1,r2)
+head(r2)
+
+```
+
+```{r}
+#Output raw probs
+m1 = naiveBayes(x,y)
+r1 = predict(m1,testx,'raw')
+m2 = myNaiveBayes(x,y)
+r2 = predict_your_model(m2,testx,'raw')
+# To avoid floating precision issues
+all.equal(round(r1,2),round(r2,2))
+head(r2)
+```
+
+## About the print function
+
+You could get prior distribution info from Y and conditional probabilities from Gaussian estimation or Bayes formula.
+```{r,eval=FALSE}
+
+m2 = myNaiveBayes(x,y)
+print_my_naiveBayes(m2)
+
+```
+
+## Try on the data including categorical Xi
+
+The dataset *iris* contains only continuous variables. And we will test on a new simulated dataset to check whether we could deal with categorical variables correctly.
+
+```{r}
+
+# Build a new data frame
+data_new = data.frame(
+  size=c("Big","Small","Big","Big","Small","Small"),
+  weight=c("light","heavy","light","light","heavy","light"),
+  color=c("Red","Red","Red","Green","Red","Green"),
+  expensive = c(FALSE,FALSE,TRUE,TRUE,FALSE,FALSE),
+  taste=c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE)
+)
+x=data_new[,-5]
+y=data_new[,5]
+testx = data.frame(
+  size=c("Big","Small"),
+  weight=c("heavy","light"),
+  color=c("Green","Red"),
+  expensive = c(FALSE,TRUE)
+)
+
+m1 = naiveBayes(x,y)
+r1 = predict(m1,testx)
+m2 = myNaiveBayes(x,y)
+r2 = predict_your_model(m2,testx,'class')
+all.equal(factor(r1,levels = c("TRUE", "FALSE")),r2)
+```
+
+The results by using this package matches the outcomes from base function and other established packages.
+
+## Comparisons for efficiency
+
+```{r}
+library(bench)
+library(ggplot2)
+
+# Generate large dataset
+set.seed(1)
+mydata = list()
+for (i in 1:50) {
+  mean_r = sample(1:100,1)
+  sd_r = sample(1:50,1)
+  mydata[[i]] = rnorm(5000,mean_r,sd_r)
+}
+
+mydata = data.frame(mydata)
+names(mydata)=c(1:50)
+y = factor(rep(1:10,400))
+x = mydata[1:4000,]
+testx = mydata[4001:5000,]
+
+m1 = naiveBayes(x,y)
+m2 = myNaiveBayes(x,y)
+
+# Predict test
+bm_predict = bench::mark(predict(m1,testx), predict_your_model(m2,testx,'class'))
+print(bm_predict)
+plot(bm_predict)
+
+
+```
+
+We could see that our method is not so efficient as original function and would cost more memory. But the gap is tiny on big data and users could build Naive Bayes Model more flexible with our package considering discretization.
+

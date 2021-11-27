@@ -4,7 +4,8 @@ Title: Bios625 homework4 (Title Case)
 Version: 0.1.1
 Imports: 
     discretization,
-    e1071
+    e1071,
+    bench
 Author: Xiao Chen
 Maintainer: Xiao Chen <xiaocx@umich.edu>
 Description: Implement Naive Bayes Classifier

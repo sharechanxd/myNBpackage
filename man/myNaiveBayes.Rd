@@ -21,13 +21,16 @@ myNaiveBayes(x,y,laplace = 0,discre = FALSE,alpha=0.05)
 object for Naive bayes classifier
 }
 \description{
-Naive bayes classifier with discretization and Gaussian estimation
+We assume that the data follows Gaussian Distribution with small sample size.Continuous Xi we estimated with Guassian Distribution.For categorical and logical Xi, P(Xi|Y) would be calculated with laplace smoothing.all needed info to do bayes inference from train data will be in the object.
+}
+\details{
+This would give us a 'NB' class object for predicting and printing.To estimate the parameters for a feature's distribution, one must assume a distribution or generate nonparametric models for the features from the training set.If you are dealing with continuous data, a common assumption is that these continuous values are Gaussians. For attributes with missing values, the corresponding table entries are omitted for prediction.
 }
 \examples{
 x=iris[c(1:40,51:90,101:140),-5]
 y=iris[c(1:40,51:90,101:140),5]
 testx = iris[c(41:50,91:100,141:150),-5]
 m2 = myNaiveBayes(x,y)
-r2 = predict_your_model(m2,testx,'class')
+m2
 
 }

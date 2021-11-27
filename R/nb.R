@@ -14,12 +14,13 @@ library(e1071, quietly = TRUE)
 
 ## Below two functions are suitable for discretization method.
 
-#' function of discreting the train data with supervised method and return the cut points.
+#' function of discreting the train data with supervised method and return the cut points and discreted train dataset.
 #' @title Discretization for train dataset
 #' @name disc_train_data
+#' @description In the case of a large number of samples, the discretization method performs better, because a large number of samples can learn the distribution of the data.This function would be used to supervisedly discrete the train dataset
 #' @usage disc_train_data(x, y, alpha =0.05)
-#' @param x A dataframe of train data with some numeric columns
-#' @param y A dataframe or vector of categorical labels
+#' @param x A dataframe of train data with some numeric columns, X must have dim larger than 1
+#' @param y A dataframe or vector of categorical labels, should be factored
 #' @param alpha Significance level value, default is 0.05
 #'
 #' @return A list with cut points and new x dataframe
@@ -51,14 +52,15 @@ disc_train_data = function(x,y,alpha=0.05){
   return(list(cutp=cutp,discredata=discredata))
 }
 
-#' function to discrete the test data with train data cut points.
+#' function to discrete the test data with cut points from train dataset.
 #' @title Discretization for test dataset
+#' @description After getting cut points from train data, we could apply this cut points for discretization of test data
 #' @name disc_test_data
 #' @usage disc_test_data(x, cutp)
 #' @param x A dataframe of test data with some numeric columns
 #' @param cutp cut points from train dataset
 #'
-#' @return new test data with discretization
+#' @return new test data after discretization
 #' @export
 #'
 #' @examples
@@ -67,7 +69,7 @@ disc_train_data = function(x,y,alpha=0.05){
 #' testx = iris[c(41:50,91:100,141:150),-5]
 #' v = disc_train_data(x,y)
 #' testx_dis = disc_test_data(testx,v$cutp)
-#'
+#' testx_dis
 #'
 #'
 disc_test_data = function(x,cutp){
@@ -81,9 +83,10 @@ disc_test_data = function(x,cutp){
   return(discredata)
 }
 
-
+#' This would give us a 'NB' class object for predicting and printing.To estimate the parameters for a feature's distribution, one must assume a distribution or generate nonparametric models for the features from the training set.If you are dealing with continuous data, a common assumption is that these continuous values are Gaussians. For attributes with missing values, the corresponding table entries are omitted for prediction.
 #' @title Naive bayes classifier with discretization and Gaussian estimation
 #' @name myNaiveBayes
+#' @description We assume that the data follows Gaussian Distribution with small sample size.Continuous Xi we estimated with Guassian Distribution.For categorical and logical Xi, P(Xi|Y) would be calculated with laplace smoothing.all needed info to do bayes inference from train data will be in the object.
 #' @usage myNaiveBayes(x,y,laplace = 0,discre = FALSE,alpha=0.05)
 #' @param x A dataframe of train data
 #' @param y A dataframe or vector of categorical labels
@@ -99,7 +102,7 @@ disc_test_data = function(x,cutp){
 #' y=iris[c(1:40,51:90,101:140),5]
 #' testx = iris[c(41:50,91:100,141:150),-5]
 #' m2 = myNaiveBayes(x,y)
-#' r2 = predict_your_model(m2,testx,'class')
+#' m2
 #'
 myNaiveBayes = function(x,y,laplace = 0,discre = FALSE,alpha=0.05){
   if(any(rowsum(rep(1,length(y)), y)<2)){
@@ -146,6 +149,11 @@ myNaiveBayes = function(x,y,laplace = 0,discre = FALSE,alpha=0.05){
   ## all needed info to do bayes inference from X in this list.
   prob_prep_table = lapply(x,gaussian_estimation,target=y)
 
+  ## fix dimname names
+  for(i in 1:length(prob_prep_table)){
+    names(dimnames(prob_prep_table[[i]])) <- c('Y', colnames(x)[i])
+  }
+
   return(structure(
     list(prior_dist=prior_dist,
          prob_prep_table=prob_prep_table,
@@ -154,14 +162,15 @@ myNaiveBayes = function(x,y,laplace = 0,discre = FALSE,alpha=0.05){
 }
 
 
-
+#' Notice you should specify the result type in 'class'(return labels) and 'raw'(return probabilities)
 #' @title Naive bayes predictor
 #' @name predict_your_model
+#' @description used to predict new data with previously defined model
 #' @usage predict_your_model(NB_obj,new_x, pred_type = c('class','raw'),threshold = .Machine$double.eps,eps = 0)
 #' @param NB_obj object for Naive bayes classifier
 #' @param new_x a dataframe of test dataset without labels
-#' @param pred_type predict result, should be 'class' or 'raw'
-#' @param threshold laplace smoothing parametre, default is .Machine$double.eps
+#' @param pred_type predicted result type, should be 'class' or 'raw'
+#' @param threshold Value replacing cells with probabilities within eps, default is .Machine$double.eps
 #' @param eps laplace smoothing parametre, default is 0
 #'
 #' @return predicted result depending on pred_type
@@ -243,6 +252,7 @@ predict_your_model = function(NB_obj,new_x, pred_type = c('class','raw'),thresho
 
 #' @title Print function to see hidden information
 #' @name print_my_naiveBayes
+#' @description see hidden information
 #' @usage print_my_naiveBayes(model)
 #' @param model object for Naive bayes classifier
 #'

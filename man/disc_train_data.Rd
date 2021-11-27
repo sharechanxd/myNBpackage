@@ -7,9 +7,9 @@
 disc_train_data(x, y, alpha =0.05)
 }
 \arguments{
-\item{x}{A dataframe of train data with some numeric columns}
+\item{x}{A dataframe of train data with some numeric columns, X must have dim larger than 1}
 
-\item{y}{A dataframe or vector of categorical labels}
+\item{y}{A dataframe or vector of categorical labels, should be factored}
 
 \item{alpha}{Significance level value, default is 0.05}
 }
@@ -17,7 +17,10 @@ disc_train_data(x, y, alpha =0.05)
 A list with cut points and new x dataframe
 }
 \description{
-function of discreting the train data with supervised method and return the cut points.
+In the case of a large number of samples, the discretization method performs better, because a large number of samples can learn the distribution of the data.This function would be used to supervisedly discrete the train dataset
+}
+\details{
+function of discreting the train data with supervised method and return the cut points and discreted train dataset.
 }
 \examples{
 x=iris[c(1:40,51:90,101:140),-5]

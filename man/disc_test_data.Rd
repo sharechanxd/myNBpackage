@@ -12,10 +12,13 @@ disc_test_data(x, cutp)
 \item{cutp}{cut points from train dataset}
 }
 \value{
-new test data with discretization
+new test data after discretization
 }
 \description{
-function to discrete the test data with train data cut points.
+After getting cut points from train data, we could apply this cut points for discretization of test data
+}
+\details{
+function to discrete the test data with cut points from train dataset.
 }
 \examples{
 x=iris[c(1:40,51:90,101:140),-5]
@@ -23,7 +26,7 @@ y=iris[c(1:40,51:90,101:140),5]
 testx = iris[c(41:50,91:100,141:150),-5]
 v = disc_train_data(x,y)
 testx_dis = disc_test_data(testx,v$cutp)
-
+testx_dis
 
 
 }
