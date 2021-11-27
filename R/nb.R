@@ -195,7 +195,7 @@ predict_your_model = function(NB_obj,new_x, pred_type = c('class','raw'),thresho
 
   isnumeric <- vapply(new_x, is.numeric, NA)
   islogical <- vapply(new_x, is.logical, NA)
-  print(y_levels)
+  # print(y_levels)
 
   # prevent 0 probability and avoid floating precision with log and plus
   calc_prob = function(i){
@@ -212,8 +212,6 @@ predict_your_model = function(NB_obj,new_x, pred_type = c('class','raw'),thresho
           mean_sd[,2][mean_sd[,2]<=eps] = threshold
           ## With mean and sd value, we could calculate the Gaussian estimation as P(Xi|Y)
           cc_prob = dnorm(cc,mean_sd[,1],mean_sd[,2])
-        }else if(islogical[v]){
-          cc_prob = NB_obj$prob_prep_table[[v]][,cc + islogical[v]]
         }else{
           cc_prob = NB_obj$prob_prep_table[[v]][,cc]
         }
@@ -233,11 +231,7 @@ predict_your_model = function(NB_obj,new_x, pred_type = c('class','raw'),thresho
   pred_prob = vapply(c(1:nrow(new_x)),calc_prob,double(length(y_levels)))
 
   if(pred_type == 'class'){
-    if(is.logical(y_levels)){
-      return(pred_prob[2,] > pred_prob[1,])
-    }else{
       return(factor(y_levels[apply(pred_prob, 2, which.max)], levels = y_levels))
-    }
   }else{
     ## Translate the value back to probabilities for different class of Y
     pred_prob = t(pred_prob)
