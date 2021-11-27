@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# BIOS625: Naive bayes classifier with discretization and Gaussian estimation
+# BIOS625: Naive Bayes Classifier with Discretization and Gaussian Estimation
 
 <!-- badges: start -->
 [![Build Status](https://app.travis-ci.com/sharechanxd/myNBpackage.svg?branch=main)](https://app.travis-ci.com/sharechanxd/myNBpackage)

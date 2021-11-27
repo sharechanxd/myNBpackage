@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# BIOS625: Naive bayes classifier with discretization and Gaussian estimation
+# BIOS625: Naive Bayes Classifier with Discretization and Gaussian Estimation
 
 <!-- badges: start -->
 
