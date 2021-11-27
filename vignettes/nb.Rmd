@@ -1,5 +1,5 @@
 ---
-title: "nb"
+title: "Naive Bayes Classifier"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{nb}
