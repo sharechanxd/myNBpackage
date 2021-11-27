@@ -4,7 +4,7 @@
 \alias{disc_train_data}
 \title{Discretization for train dataset}
 \usage{
-disc_train_data(x,y,alpha =0.0.5)
+disc_train_data(x, y, alpha =0.05)
 }
 \arguments{
 \item{x}{A dataframe of train data with some numeric columns}

@@ -17,7 +17,7 @@ library(e1071, quietly = TRUE)
 #' function of discreting the train data with supervised method and return the cut points.
 #' @title Discretization for train dataset
 #' @name disc_train_data
-#' @usage disc_train_data(x,y,alpha =0.0.5)
+#' @usage disc_train_data(x, y, alpha =0.05)
 #' @param x A dataframe of train data with some numeric columns
 #' @param y A dataframe or vector of categorical labels
 #' @param alpha Significance level value, default is 0.05
@@ -54,7 +54,7 @@ disc_train_data = function(x,y,alpha=0.05){
 #' function to discrete the test data with train data cut points.
 #' @title Discretization for test dataset
 #' @name disc_test_data
-#' @usage disc_test_data(testx,cutp)
+#' @usage disc_test_data(x, cutp)
 #' @param x A dataframe of test data with some numeric columns
 #' @param cutp cut points from train dataset
 #'
@@ -109,7 +109,7 @@ myNaiveBayes = function(x,y,laplace = 0,discre = FALSE,alpha=0.05){
 
   if (is.logical(y)){
     # only for TRUE/FALSE or T/F
-    y <- factor(y, levels = c("TRUE", "FALSE"))
+    y <- factor(y, levels = c(TRUE, FALSE))
   }
   ## This is the prior distribution coming from labels.
   prior_dist = table(y)

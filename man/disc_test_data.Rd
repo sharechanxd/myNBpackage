@@ -4,7 +4,7 @@
 \alias{disc_test_data}
 \title{Discretization for test dataset}
 \usage{
-disc_test_data(testx,cutp)
+disc_test_data(x, cutp)
 }
 \arguments{
 \item{x}{A dataframe of test data with some numeric columns}
