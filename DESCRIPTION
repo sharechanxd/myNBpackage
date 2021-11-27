@@ -5,7 +5,8 @@ Version: 0.1.1
 Imports: 
     discretization,
     e1071,
-    bench
+    bench,
+    ggplot2
 Author: Xiao Chen
 Maintainer: Xiao Chen <xiaocx@umich.edu>
 Description: Implement Naive Bayes Classifier

@@ -61,6 +61,7 @@ This package includes 5 functions:
 * **predict_your_model**: used to predict new data with previously defined model
 	* 'class'(return labels) and 'raw'(return probabilities)
 	* predict_your_model(NB_obj,new_x, pred_type = c('class','raw'),threshold = .Machine$double.eps,eps = 0)
+	
 	  * **NB_obj**: object for Naive bayes classifier
 	  * **new_x**: a dataframe of test dataset without labels
 	  * **pred_type**: predicted result type, should be 'class' or 'raw'

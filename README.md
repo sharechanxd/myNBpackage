@@ -70,9 +70,17 @@ This package includes 5 functions:
   - **predict\_your\_model**: used to predict new data with previously
     defined model
       - ‘class’(return labels) and ‘raw’(return probabilities)
+    
       - predict\_your\_model(NB\_obj,new\_x, pred\_type =
-        c(‘class’,‘raw’),threshold =
-        .Machine\(double.eps,eps = 0) * **NB_obj**: object for Naive bayes classifier * **new_x**: a dataframe of test dataset without labels * **pred_type**: predicted result type, should be 'class' or 'raw' * **threshold**: Value replacing cells with probabilities within eps, default is .Machine\)double.eps
+        c(‘class’,‘raw’),threshold = .Machine$double.eps,eps =
+        0)
+        
+          - **NB\_obj**: object for Naive bayes classifier
+          - **new\_x**: a dataframe of test dataset without labels
+          - **pred\_type**: predicted result type, should be ‘class’ or
+            ‘raw’
+          - **threshold**: Value replacing cells with probabilities
+            within eps, default is .Machine$double.eps
           - **eps**: laplace smoothing parametre, default is 0
   - **print\_my\_naiveBayes**: Print function to see hidden information
 
